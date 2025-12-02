@@ -1,0 +1,44 @@
+[
+    {
+        "nome": "JavaScript",
+        "descricao": "O JS é a linguagem da web.",
+        "ano": 1995,
+        "link": "https://developer.mozilla.org/pt-BR/docs/Web/JavaScript"
+    },
+    {
+        "nome": "Python",
+        "descricao": "O Pytohn é a linguagem da ciência de dados e IA.",
+        "ano": 1991,
+        "link": "https://docs.python.org/pt-br/3.14/"    
+    },
+    {
+        "nome": "Java",
+        "descricao": "Java é uma linguagem de programação orientada a objetos, popular para aplicações corporativas.",
+        "ano": 1995,
+        "link": "https://docs.oracle.com/en/java/"
+    },
+    {
+        "nome": "C#",
+        "descricao": "C# (C Sharp) é uma linguagem moderna, orientada a objetos e desenvolvida pela Microsoft.",
+        "ano": 2000,
+        "link": "https://learn.microsoft.com/pt-br/dotnet/csharp/"
+    },
+    {
+        "nome": "Go",
+        "descricao": "Go (ou Golang) é uma linguagem de programação compilada e concorrente criada pelo Google.",
+        "ano": 2009,
+        "link": "https://go.dev/doc/"
+    },
+    {
+        "nome": "Rust",
+        "descricao": "Rust é uma linguagem de programação focada em segurança, velocidade e concorrência.",
+        "ano": 2010,
+        "link": "https://www.rust-lang.org/pt-BR/learn"
+    },
+    {
+        "nome": "TypeScript",
+        "descricao": "TypeScript é um superset do JavaScript que adiciona tipagem estática opcional à linguagem.",
+        "ano": 2012,
+        "link": "https://www.typescriptlang.org/docs/"
+    }
+]
