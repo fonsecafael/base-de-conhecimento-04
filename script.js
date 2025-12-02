@@ -1,44 +1,56 @@
-let cardContainer = document.querySelector(".card-container");
-let dados = [];
-let botaoBusca = document.querySelector("#botao-busca");
+const searchInput = document.querySelector('input[type="text"]');
+const cardContainer = document.querySelector('.card-container');
 
-// Adiciona um seletor para o campo de busca
-let campoBusca = document.querySelector("#campo-busca");
+async function fetchData() {
+    try {
+        const response = await fetch('data.json');
+        if (!response.ok) {
+            throw new Error(`Erro HTTP! status: ${response.status}`);
+        }
+        return await response.json();
+    } catch (error) {
+        console.error("Não foi possível carregar os dados:", error);
+        return [];
+    }
+}
 
-botaoBusca.addEventListener("click", iniciarBusca);
+function createCard(item) {
+    const card = document.createElement('article');
+    card.className = 'card';
+
+    const year = item.ano || item.data_criacao;
+
+    card.innerHTML = `
+        <h2>${item.nome}</h2>
+        <p>${year}</p>
+        <p>${item.descricao}</p>
+        <a href="${item.link}" target="_blank">Saiba mais</a>
+    `;
+    return card;
+}
 
 async function iniciarBusca() {
-    // Só busca os dados do JSON se ainda não tiverem sido carregados
-    if (dados.length === 0) {
-        let resposta = await fetch ("data.json");
-        dados = await resposta.json();
-    }
+    const searchTerm = searchInput.value.toLowerCase();
+    const data = await fetchData();
 
-    // Pega o termo digitado no campo de busca, em minúsculas
-    let termoBusca = campoBusca.value.toLowerCase();
-
-    // Filtra os dados com base no termo de busca (no nome ou na descrição)
-    const dadosFiltrados = dados.filter(dado => 
-        dado.nome.toLowerCase().includes(termoBusca) ||
-        dado.descricao.toLowerCase().includes(termoBusca)
+    const filteredData = data.filter(item =>
+        item.nome.toLowerCase().includes(searchTerm)
     );
 
-    // Limpa os cards existentes antes de renderizar novos
-    cardContainer.innerHTML = "";
+    cardContainer.innerHTML = ''; // Limpa os resultados anteriores
 
-    renderizarCards(dadosFiltrados);
-}
-
-function renderizarCards(dados) {
-    for (let dado of dados) {
-        let article = document.createElement("article");
-        article.classList.add("card");
-        article.innerHTML = `
-        <h2>${dado.nome}</h2>
-        <p>${dado.ano}</p>
-        <p>${dado.descricao}</p>
-        <a href="${dado.link}" target="_blank">Saiba mais</a>
-        `
-        cardContainer.appendChild(article);
+    if (filteredData.length > 0) {
+        filteredData.forEach(item => {
+            const cardElement = createCard(item);
+            cardContainer.appendChild(cardElement);
+        });
+    } else {
+        cardContainer.innerHTML = '<p>Nenhum resultado encontrado.</p>';
     }
 }
+
+searchInput.addEventListener('keyup', (event) => {
+    if (event.key === 'Enter') {
+        iniciarBusca();
+    }
+});
